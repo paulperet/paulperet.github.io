@@ -5,7 +5,7 @@ layout: page
 
 # Word Embeddings
 
-[TEXT GOES HERE]
+![GPT Architecture - Word Embedding Layer](gpt-step1.png)
 
 ### References
 
