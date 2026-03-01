@@ -1,6 +1,6 @@
 title: AI Building Blocks
 description: A starter template for a Jeykll site using the Just the Docs theme!
 theme: just-the-docs
-markdown: kramdown
+math: mathjax
 
 url: https://just-the-docs.github.io
