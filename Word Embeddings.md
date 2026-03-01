@@ -52,7 +52,7 @@ During backpropagation, our embeddings are modified to bring similar words close
 ## Introducing the GPT Embedding Layer
 
 <div style="display: flex; gap: 20px;">
-  <img src="gpt-step1.png" style="width: 30%; height: auto;">
+  <img src="images/GPT-2-step1.png" style="width: 40%; max-width: 300px; height: auto;">
   <div>
     <p>This is the first layer of the GPT architecture. It maps every token of the vocabulary to a dense vector. While other architectures like word2vec allowed to capture the semantic meaning of words, in GPT or BERT the interpretability of this first layer is limited as we use sub-word tokenizations techniques like BPE or WordPiece. Indeed, words can be split between multiple subtokens which may difficultly interpretable before being passed to the next layers. Hence, it would be better to see this layer has the backbone of the model, that will be refined throught later layers and capture positional and contextual meaning. </p>
   </div>
