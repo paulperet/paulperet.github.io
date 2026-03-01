@@ -8,7 +8,7 @@ grand_parent:
 
 Representing words as vectors is not new and has been one of the most successful way of making sense of large documents and representing the semantic relationship of words in machine learning.
 
-#### TF-IDF
+### TF-IDF
 An early technique, TF-IDF focused on simple word counting in documents :
 
 $$
@@ -19,7 +19,7 @@ Where $$tf_{i,j}$$ represent the number of times the term i appears in the docum
 
 This method allows to retrieve the terms that are uniquely present for each document. This can be particularly useful when trying to capture the unique features of each document. 
 
-#### Example
+### Example
 
 Let's apply TF-IDF with a corpus composed of four books from Jane Austen :
 
@@ -28,14 +28,13 @@ align-items: center;">
   <img src="images/tf-idf-jane-austen.png" style="width: 80%; height: auto;">
 </div>
 
-> [!NOTE]
-> We use preprocessing techniques, to remove stop words, punctuations and special characters as well as converting every word to lowercase before applying the algorithm.
+> Note : We use preprocessing techniques, to remove stop words, punctuations and special characters as well as converting every word to lowercase before applying the algorithm.
 
 We find that the most important words are character names as they are common in their respective book while not appearing in the other authors' books.
 
 However, this method shows limits on how useful the representations of words could be. While this allowed to capture discriminative words and make sense of documents, the encoding of words was very inefficient due their sparcity, high encoding dimension and high storage requirements.
 
-#### Word2Vec
+### Word2Vec
 
 The second most important innovation was the dense vector representations of words introduced in word2vec, computed using the Skip-Gram method [1]. Each word is mapped to a dense vector. The vectors corresponding to words can be represented as a matrix of size (vocabulary_length, embedding_dimension) where each slice correspond to a unique mapping of a single word. 
 
@@ -44,7 +43,6 @@ The algorithm follows the distributional hypothesis, that states that the semant
 $$
 \log \sigma({v'_{w_O}}^\top v_{w_I}) + \sum_{i=1}^{k} \mathbb{E}_{w_i \sim P_n(w)} \left[ \log \sigma(-{v'_{w_i}}^\top v_{w_I}) \right]$$
 
-> [!TIP]
 > While this might look scary at first, the intrinsic logic is very intuitive. The first term $$\log \sigma({v'_{w_O}}^\top v_{w_I})$$ is computing how close our center word and context word are from eachother. Then $$\sum_{i=1}^{k} \mathbb{E}_{w_i \sim P_n(w)} \left[ \log \sigma(-{v'_{w_i}}^\top v_{w_I}) \right]$$ sample k number of negative examples (words that are not in our context window) and compute how close our center word is from these negative examples. 
 
 During backpropagation, our embeddings are modified to bring similar words close to eachother in the vector space while pushing negative examples away. The resulting embedding matrix has interesting properties that we can visualize:
@@ -64,11 +62,15 @@ During backpropagation, our embeddings are modified to bring similar words close
 
 This layer takes a one hot vector as input. Each token in the vocabulary is mapped to an index of the embedding layer.
 
-$$\mathbf{x}_{cat} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}$$
+$$
+\mathbf{x}_{cat} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}
+$$
 
 The embedding weights:
 
-$$W_{E} = \underbrace{\begin{bmatrix} w_{1,1} & w_{1,2} & \dots & w_{1,d} \\ w_{2,1} & w_{2,2} & \dots & w_{2,d} \\ \vdots & \vdots & \ddots & \vdots \\ w_{V,1} & w_{V,2} & \dots & w_{V,d} \end{bmatrix}}_{\text{Vocab Size (V)}} \left. \vphantom{\begin{matrix} w_{1,1} \\ w_{2,1} \\ \vdots \\ w_{V,1} \end{matrix}} \right\} \text{Embedding Dimension (d)}$$
+$$
+W_{E} = \underbrace{\begin{bmatrix} w_{1,1} & w_{1,2} & \dots & w_{1,d} \\ w_{2,1} & w_{2,2} & \dots & w_{2,d} \\ \vdots & \vdots & \ddots & \vdots \\ w_{V,1} & w_{V,2} & \dots & w_{V,d} \end{bmatrix}}_{\text{Vocab Size (V)}} \left. \vphantom{\begin{matrix} w_{1,1} \\ w_{2,1} \\ \vdots \\ w_{V,1} \end{matrix}} \right\} \text{Embedding Dimension (d)}
+$$
 
 Multiplying a one hot vector and a matrix is the same as taking its column as the index of the one.
 
