@@ -11,9 +11,11 @@ Representing words as vectors is not new and has been one of the most successful
 #### TF-IDF
 An early technique, TF-IDF focused on simple word counting in documents :
 
-$$w_{i,j} = tf_{i,j}*log(\frac{N}{df_{i}})$$
+$$
+w_{i,j} = tf_{i,j}*log(\frac{N}{df_{i}})
+$$
 
-Where $tf_{i,j}$ represent the number of times the term i appears in the document j, ${N}$ is the number of documents in the corpus and $df_{i}$ is the number of documents containing the term i.
+Where $$tf_{i,j}$$ represent the number of times the term i appears in the document j, $${N}$$ is the number of documents in the corpus and $$df_{i}$$ is the number of documents containing the term i.
 
 This method allows to retrieve the terms that are uniquely present for each document. This can be particularly useful when trying to capture the unique features of each document. 
 
@@ -39,10 +41,11 @@ The second most important innovation was the dense vector representations of wor
 
 The algorithm follows the distributional hypothesis, that states that the semantic meaning of words can be infered by words present in its context window. To compute our embeddings Mikolov and al. propose to optimize for this objective function :
 
-$$\log \sigma({v'_{w_O}}^\top v_{w_I}) + \sum_{i=1}^{k} \mathbb{E}_{w_i \sim P_n(w)} \left[ \log \sigma(-{v'_{w_i}}^\top v_{w_I}) \right]$$
+$$
+\log \sigma({v'_{w_O}}^\top v_{w_I}) + \sum_{i=1}^{k} \mathbb{E}_{w_i \sim P_n(w)} \left[ \log \sigma(-{v'_{w_i}}^\top v_{w_I}) \right]$$
 
 > [!TIP]
-> While this might look scary at first, the intrinsic logic is very intuitive. The first term $\log \sigma({v'_{w_O}}^\top v_{w_I})$ is computing how close our center word and context word are from eachother. Then $\sum_{i=1}^{k} \mathbb{E}_{w_i \sim P_n(w)} \left[ \log \sigma(-{v'_{w_i}}^\top v_{w_I}) \right]$ sample k number of negative examples (words that are not in our context window) and compute how close our center word is from these negative examples. 
+> While this might look scary at first, the intrinsic logic is very intuitive. The first term $$\log \sigma({v'_{w_O}}^\top v_{w_I})$$ is computing how close our center word and context word are from eachother. Then $$\sum_{i=1}^{k} \mathbb{E}_{w_i \sim P_n(w)} \left[ \log \sigma(-{v'_{w_i}}^\top v_{w_I}) \right]$$ sample k number of negative examples (words that are not in our context window) and compute how close our center word is from these negative examples. 
 
 During backpropagation, our embeddings are modified to bring similar words close to eachother in the vector space while pushing negative examples away. The resulting embedding matrix has interesting properties that we can visualize:
 
