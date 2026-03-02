@@ -124,7 +124,7 @@ class GPT(nn.Module):
 
 ### Sources
 
-[1] [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781)
-[2] [Transformers, the tech behind LLMs | Deep Learning Chapter 5](https://www.youtube.com/watch?v=wjZofJX0v4M)
+[1] [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781)</br> 
+[2] [Transformers, the tech behind LLMs | Deep Learning Chapter 5](https://www.youtube.com/watch?v=wjZofJX0v4M)</br> 
 [3] [A statistical interpretation of term specificity
-and its application in retrieval](https://www.staff.city.ac.uk/~sbrp622/idfpapers/ksj_orig.pdf)
+and its application in retrieval](https://www.staff.city.ac.uk/~sbrp622/idfpapers/ksj_orig.pdf)</br> 
