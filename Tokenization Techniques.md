@@ -10,8 +10,8 @@ grand_parent:
 
 Before diving into the complex architecture of GPT-2, we need to understand the role of tokenization. As computers cannot make sense of text, we need to represent each unique character or word as a unique number. This unique number will then be fed to our neural language models. Our vocabulary consists of all pairs $$(word, id)$$.
 
-> Why don't we just use character-level tokens like the classical encoding formats ASCII or UTF-8 ?
-The motivation behind tokenization is to help the LLM learns meaningful representations of the words by pushing it to reason about them at a higher level. Indeed, humans rarely think about the characters composing the word when articulating a thought.
+> Why don't we just use character/byte-level tokens like the ASCII or UTF-8 encoding formats?
+The motivation behind tokenization is to help the LLM learn meaningful representations of the words by pushing it to reason about them at a higher level. Indeed, humans rarely think about the characters composing the word when articulating a thought.
 
 ### Word-Level tokenization
 
@@ -47,7 +47,7 @@ sentence = "The cat jumped down from the bed."
 
 First we start by splitting every word of our corpus and separate the punctuation. Then we create a dictionary where each word as its frequency associated with it.
 
->The splitting rule for GPT-2 represents space as a special character, rendered as 'Ġ' and incorporate them to the beginning of the word that follows it.
+>The splitting rule for GPT-2 represents space as a special character, rendered as 'Ġ' and incorporate them at the beginning of the word that follows it.
 
 ```python
 corpus = {'The': 1, 'Ġcat': 1, 'Ġjumped': 1, 'Ġdown': 1, 'Ġfrom': 1, 'Ġthe': 1, 'Ġbed': 1, '.': 1}
@@ -59,7 +59,7 @@ We start with a vocabulary that comprises of all single characters present in ou
 vocabulary = ['u', 'h', 'w', 't', 'o', 'm', 'r', 'T', 'p', 'n', 'f', 'c', '.', 'e', 'b', ' ', 'j', 'd', 'Ġ', 'a']
 ```
 
-If we apply our merging rules before running the algorithm, we just obtain a character level tokenization.
+> If we apply our merging rules before running the algorithm, we just obtain a character level tokenization.
 
 We split invidual words into single characters :
 
@@ -127,7 +127,40 @@ We can visualize our tokenizer in action in our original sentence :
 align-items: center;">
   <img src="images/BPE-Step10-Tokenization.png" style="width: 50%; height: auto; max-width: 700px;">
 </div>
+</br>
 
-Note that the original GPT-2 differs from our example as it works directly at the byte level (UTF-8 encoding).
+> Note that the original GPT-2 differs from our example as it works directly at the byte level (UTF-8 encoding).
 
+**Original algorithm from [1]:**
+
+```python
+import re, collections
+
+def get_stats(vocab):
+    pairs = collections.defaultdict(int)
+    for word, freq in vocab.items():
+        symbols = word.split()
+        for i in range(len(symbols)-1):
+            pairs[symbols[i],symbols[i+1]] += freq
+    return pairs
+
+def merge_vocab(pair, v_in):
+    v_out = {}
+    bigram = re.escape(' '.join(pair))
+    p = re.compile(r'(?<!\S)' + bigram + r'(?!\S)')
+    for word in v_in:
+        w_out = p.sub(''.join(pair), word)
+        v_out[w_out] = v_in[word]
+    return v_out
+
+vocab = {'l o w </w>' : 5, 'l o w e r </w>' : 2,
+'n e w e s t </w>':6, 'w i d e s t </w>':3}
+num_merges = 10
+
+for i in range(num_merges):
+    pairs = get_stats(vocab)
+    best = max(pairs, key=pairs.get)
+    vocab = merge_vocab(best, vocab)
+    print(best)
+```
 [1] [Neural Machine Translation of Rare Words with Subword Units](https://arxiv.org/pdf/1508.07909)

@@ -54,39 +54,36 @@ During backpropagation, our embeddings are modified to bring similar words close
 <div style="display: flex; gap: 20px;">
   <img src="images/GPT-2-step1.png" style="width: 40%; max-width: 300px; height: auto;">
   <div>
-    <p>This is the first layer of the GPT architecture. It maps every token of the vocabulary to a dense vector. While other architectures like word2vec allowed to capture the semantic meaning of words, in GPT or BERT the interpretability of this first layer is limited as we use sub-word tokenizations techniques like BPE or WordPiece. Indeed, words can be split between multiple subtokens which may difficultly interpretable before being passed to the next layers. Hence, it would be better to see this layer has the backbone of the model, that will be refined throught later layers and capture positional and contextual meaning. </p>
+    <p>This is the first layer of the GPT architecture. It maps every token of the vocabulary to a dense vector. While other architectures like word2vec allowed to capture the semantic meaning of words, in GPT or BERT the interpretability of this first layer is limited as we use sub-word tokenizations techniques like BPE or WordPiece. Indeed, words can be split between multiple subtokens which may difficultly interpretable before being passed to the next layers. Hence, it would be better to see these vectors as the backbone, that will be refined through later layers to capture positional and contextual meaning. </p>
   </div>
 </div>
 
 ### Input Sequence
 
-This layer takes a one hot vector as input. Each token in the vocabulary is mapped to an index of the embedding layer.
+The embedding layer act as a lookup table. Each token in the vocabulary is mapped to an column of the embedding layer.
 
-$$
-\mathbf{x}_{cat} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}
-$$
-
-The embedding weights:
+The embedding weights are represented as a tensor:
 
 $$
 W_{E} = \underbrace{\begin{bmatrix} w_{1,1} & w_{1,2} & \dots & w_{1,d} \\ w_{2,1} & w_{2,2} & \dots & w_{2,d} \\ \vdots & \vdots & \ddots & \vdots \\ w_{V,1} & w_{V,2} & \dots & w_{V,d} \end{bmatrix}}_{\text{Vocab Size (V)}} \left. \vphantom{\begin{matrix} w_{1,1} \\ w_{2,1} \\ \vdots \\ w_{V,1} \end{matrix}} \right\} \text{Embedding Dimension (d)}
 $$
 
-Multiplying a one hot vector and a matrix is the same as taking its column as the index of the one.
+To get the vector corresponding to our token we simply slice the embedding matrix at our token id. In PyTorch, slicing a tensor allows the gradients to propagate during the optimization phase.
+
+Let's say we want to get the embedding for the word "cat" which corresponds to the token 1 in our vocabulary. Then we obtain its vector by taking the second column in the embedding matrix;
 
 $$
-\mathbf{e}_{cat} = 
+\mathbf{e}_{cat} : 
 \begin{bmatrix} 
 w_{1,1} & \color{red}{w_{1,2}} & w_{1,3} & w_{1,4} & w_{1,5} \\
 w_{2,1} & \color{red}{w_{2,2}} & w_{2,3} & w_{2,4} & w_{2,5} \\
 \vdots & \color{red}{\vdots} & \vdots & \vdots & \vdots \\
 w_{d,1} & \color{red}{w_{d,2}} & w_{d,3} & w_{d,4} & w_{d,5}
 \end{bmatrix}
-\begin{bmatrix} 0 \\ \mathbf{\color{red}{1}} \\ 0 \\ 0 \\ 0 \end{bmatrix} 
-= \begin{bmatrix} \color{red}{w_{1,2}} \\ \color{red}{w_{2,2}} \\ \vdots \\ \color{red}{w_{d,2}} \end{bmatrix}
+\rightarrow \begin{bmatrix} \color{red}{w_{1,2}} \\ \color{red}{w_{2,2}} \\ \vdots \\ \color{red}{w_{d,2}} \end{bmatrix}
 $$
 
-The resulting vector correspond to a dense representation of our token.
+The resulting vector corresponds to a dense representation of our token.
 
 ## Code
 
@@ -124,7 +121,9 @@ class GPT(nn.Module):
 
 ### Sources
 
-[1] [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781)</br> 
-[2] [Transformers, the tech behind LLMs | Deep Learning Chapter 5](https://www.youtube.com/watch?v=wjZofJX0v4M)</br> 
+[1] [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781)
+
+[2] [Transformers, the tech behind LLMs | Deep Learning Chapter 5](https://www.youtube.com/watch?v=wjZofJX0v4M)
+
 [3] [A statistical interpretation of term specificity
-and its application in retrieval](https://www.staff.city.ac.uk/~sbrp622/idfpapers/ksj_orig.pdf)</br> 
+and its application in retrieval](https://www.staff.city.ac.uk/~sbrp622/idfpapers/ksj_orig.pdf)
