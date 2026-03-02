@@ -8,7 +8,7 @@ grand_parent:
 
 ### Motivation
 
-Before diving into the complex architecture of GPT-2, we need to understand the role of tokenization. As computers cannot make sense of text, we need to represent each unique character or word as a unique number. This unique number will then be fed to our neural language models. Our vocabulary consists of all pairs $(word, id)$.
+Before diving into the complex architecture of GPT-2, we need to understand the role of tokenization. As computers cannot make sense of text, we need to represent each unique character or word as a unique number. This unique number will then be fed to our neural language models. Our vocabulary consists of all pairs $$(word, id)$$.
 
 > Why don't we just use character-level tokens like the classical encoding formats ASCII or UTF-8 ?
 The motivation behind tokenization is to help the LLM learns meaningful representations of the words by pushing it to reason about them at a higher level. Indeed, humans rarely think about the characters composing the word when articulating a thought.
@@ -24,14 +24,13 @@ align-items: center;">
 
 ### Byte-Pair Encoding
 
-Originally, BPE (or Byte-Pair Encoding) is an algorithm used to compress text. The main motivation behind using BPE for neural language models is to reconstruct rare words using characters or sub-words [1]. Because the most atomic unit of vocabulary is a single character, this allow the model to reconstruct any word that is not directly present in its vocabulary.
+Originally, BPE (or Byte-Pair Encoding) is an algorithm used to compress text. The main motivation behind using BPE for neural language models is to reconstruct rare words using characters or sub-words [1]. Because the most atomic unit of vocabulary is a single character, this allows the model to reconstruct any word that is not directly present in its vocabulary.
 
-Let's take the example where neither our Word-Level or BPE tokenizer has the word "jumped" in its vocabulary :
+Let's take the example where neither our Word-Level nor BPE tokenizer has the word "jumped" in its vocabulary :
 
 <div style="display: flex; gap: 20px;justify-content: center;
 align-items: center; max-width: 700px;">
-  <img src="images/
-Word-Level-vs-BPE.png" style="width: 70%; height: auto;">
+  <img src="images/Word-Level-vs-BPE.png" style="width: 70%; height: auto;">
 </div>
 
 The Word-Level tokenizer is unable to process this word and will return the unknown token. The BPE tokenizer will reconstruct the word by merging every known pair. In this example, the vocabulary contains "jump" and "ed" as two distinct tokens. Consequently our word will be represented by these two tokens.
@@ -75,7 +74,9 @@ We split invidual words into single characters :
  '.': ['.']}
 ```
 **Main loop: repeat until the vocabulary has reached a set size**
-We compute the most frequent pairs, first by computing the pairs in a single word, then multiplying it by the frequency of this word and finally adding the counts of similar pairs together :
+We compute the most frequent pairs, first by computing the pairs in a single word, then multiplying it by the frequency of this word and finally adding the counts of similar pairs together.
+
+> Note that we may arrive at a situation where multiple pairs have the same frequency. In our case we chose to order them by order of appearance in the text. Choosing a specific order is important to avoid non-deterministic behavior.
 
 ```python
 # Top 10 most frequent pairs
@@ -118,6 +119,7 @@ After running the loop for 10 iterations we obtain :
 ```python
 vocabulary = ['u', 'h', 'w', 't', 'o', 'm', 'r', 'T', 'p', 'n', 'f', 'c', '.', 'e', 'b', 'j', 'd', 'Ġ', 'a', 'he', 'ed', 'The', 'Ġc', 'Ġca', 'Ġcat', 'Ġj', 'Ġju', 'Ġjum', 'Ġjump']
 ```
+You can see that it started to reconstruct entire words in the vocabulary.
 
 We can visualize our tokenizer in action in our original sentence :
 
