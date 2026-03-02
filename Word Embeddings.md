@@ -25,7 +25,7 @@ Let's apply TF-IDF with a corpus composed of four books from Jane Austen :
 
 <div style="display: flex; gap: 20px;justify-content: center;
 align-items: center;">
-  <img src="images/tf-idf-jane-austen.png" style="width: 80%; height: auto;">
+  <img src="images/tf-idf-jane-austen.png" style="width: 80%; height: auto; max-width: 700px;">
 </div>
 
 > Note : We use preprocessing techniques, to remove stop words, punctuations and special characters as well as converting every word to lowercase before applying the algorithm.
