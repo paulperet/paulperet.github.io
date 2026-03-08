@@ -1,5 +1,6 @@
 ---
 title: Surprisal
+layout: page
 parent: Probability & Statistics
 ---
 

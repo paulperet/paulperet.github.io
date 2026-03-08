@@ -1,5 +1,6 @@
 ---
 title: Entropy
+layout: page
 parent: Probability & Statistics
 ---
 

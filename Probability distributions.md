@@ -1,5 +1,6 @@
 ---
 title: Probability distributions
+layout: page
 parent: Probability & Statistics
 ---
 

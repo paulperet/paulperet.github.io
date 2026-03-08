@@ -1,5 +1,6 @@
 ---
 title: Bayesian vs Frequentist
+layout: page
 parent: Probability & Statistics
 ---
 
