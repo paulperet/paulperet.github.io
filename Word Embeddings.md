@@ -1,7 +1,7 @@
 ---
 title: Word Embeddings
 layout: page
-grand_parent: 
+parent: GPT-2
 ---
 
 ## Word Embeddings : Quick Recap
@@ -60,7 +60,7 @@ During backpropagation, our embeddings are modified to bring similar words close
 
 ### Input Sequence
 
-The embedding layer act as a lookup table. Each token in the vocabulary is mapped to an column of the embedding layer.
+The embedding layer act as a lookup table. Each token in the vocabulary is mapped to a column of the embedding layer.
 
 The embedding weights are represented as a tensor:
 
@@ -68,20 +68,20 @@ $$
 W_{E} = \underbrace{\begin{bmatrix} w_{1,1} & w_{1,2} & \dots & w_{1,d} \\ w_{2,1} & w_{2,2} & \dots & w_{2,d} \\ \vdots & \vdots & \ddots & \vdots \\ w_{V,1} & w_{V,2} & \dots & w_{V,d} \end{bmatrix}}_{\text{Vocab Size (V)}} \left. \vphantom{\begin{matrix} w_{1,1} \\ w_{2,1} \\ \vdots \\ w_{V,1} \end{matrix}} \right\} \text{Embedding Dimension (d)}
 $$
 
-To get the vector corresponding to our token we simply slice the embedding matrix at our token id. In PyTorch, slicing a tensor allows the gradients to propagate during the optimization phase.
+To get the vector corresponding to our token we simply slice the column from the embedding matrix at our token id. In PyTorch, slicing a tensor allows the gradients to propagate during the optimization phase. Indeed, we can see each value in our tensor being passed by reference.
 
 Let's say we want to get the embedding for the word "cat" which corresponds to the token 1 in our vocabulary. Then we obtain its vector by taking the second column in the embedding matrix;
 
-$$
-\mathbf{e}_{cat} : 
-\begin{bmatrix} 
-w_{1,1} & \color{red}{w_{1,2}} & w_{1,3} & w_{1,4} & w_{1,5} \\
-w_{2,1} & \color{red}{w_{2,2}} & w_{2,3} & w_{2,4} & w_{2,5} \\
-\vdots & \color{red}{\vdots} & \vdots & \vdots & \vdots \\
-w_{d,1} & \color{red}{w_{d,2}} & w_{d,3} & w_{d,4} & w_{d,5}
-\end{bmatrix}
-\rightarrow \begin{bmatrix} \color{red}{w_{1,2}} \\ \color{red}{w_{2,2}} \\ \vdots \\ \color{red}{w_{d,2}} \end{bmatrix}
-$$
+$$\begin{array}{r cccc c}
+\mathbf{e}_{cat} : & 
+\left[ \begin{array}{c} w_{1,1} \\ w_{2,1} \\ \vdots \\ w_{d,1} \end{array} \right. \!\! &
+\begin{array}{c} \color{teal}{w_{1,2}} \\ \color{teal}{w_{2,2}} \\ \color{teal}{\vdots} \\ \color{teal}{w_{d,2}} \end{array} \!\! &
+\begin{array}{c} \dots \\ \dots \\ \ddots \\ \dots \end{array} \!\! &
+\left. \begin{array}{c} w_{1,n} \\ w_{2,n} \\ \vdots \\ w_{d,n} \end{array} \right] &
+\rightarrow 
+\begin{bmatrix} \color{teal}{w_{1,2}} \\ \color{teal}{w_{2,2}} \\ \vdots \\ \color{teal}{w_{d,2}} \end{bmatrix} \\[7ex]
+\text{tokens:} & 0 & \color{teal}{1} & \dots & n & 
+\end{array}$$
 
 The resulting vector corresponds to a dense representation of our token.
 

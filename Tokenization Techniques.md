@@ -1,7 +1,7 @@
 ---
 title: Tokenization techniques
 layout: page
-grand_parent: 
+parent: GPT-2
 ---
 
 ## Tokenization techniques
@@ -74,7 +74,7 @@ We split invidual words into single characters :
  '.': ['.']}
 ```
 **Main loop: repeat until the vocabulary has reached a set size**
-We compute the most frequent pairs, first by computing the pairs in a single word, then multiplying it by the frequency of this word and finally adding the counts of similar pairs together.
+We compute the most frequent pairs, first by computing the pairs in a single word from our splits, then multiplying it by the frequency of this word and finally adding the counts of similar pairs together.
 
 > Note that we may arrive at a situation where multiple pairs have the same frequency. In our case we chose to order them by order of appearance in the text. Choosing a specific order is important to avoid non-deterministic behavior.
 

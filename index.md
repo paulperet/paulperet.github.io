@@ -8,7 +8,7 @@ layout: home
 This blog will walk you through each parts needed to understand complex deep learning architectures.
 
 ## 1. The GPT-2 Architecture
-
+<br>
 <div style="display: flex; gap: 20px;">
   <img src="images/GPT-2-architecture.png" style="width: 50%; max-width: 300px; height: auto;">
   <div>
