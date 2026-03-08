@@ -21,6 +21,8 @@ Because probabilities must sum up to 1, changing the output of the function for 
 
 2. The **gaussian distribution** or the bell curve, is able to represent a lot of different natural phenomenons, such as height distribution in a population.
 
+![alt text](images/proba17.png)
+
 Because it is a continuous function, the area under the curve must be equal to 1: $$\int_{s}{p(s)} = 1$$
 
 ## What about when we have more than one variable ?
