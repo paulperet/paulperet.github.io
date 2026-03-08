@@ -2,17 +2,18 @@
 title: Bayesian vs Frequentist
 layout: page
 parent: Probability & Statistics
+nav_order: 1
 ---
 
 ## Introduction
 
 Let's take the classic example of the dice. When throwed the dice can take multiple values. We call the ensemble of possible scenarios the states. Each state is an exhaustive description of exactly one possible outcome.
 
-![Alt Text|50](images/proba1.png)
+![Alt Text](images/proba1.png)
 
 Each state has a probability $p_{i}$ shows how likely the state $S_{i}$ is to occur.
 
-![Alt Text|100](images/proba2.png)
+![Alt Text](images/proba2.png)
 
 In general let's denote the states:
 
@@ -30,7 +31,7 @@ $$\sum_{s}p_{s} = 1$$
 
 The first intuitive approach would be to throw the dice many times and record the outcomes :
 
-![Alt Text|100](images/proba3.png)
+![Alt Text](images/proba3.png)
 
 This method of experimentally evaluating the probabilities is called the frequentist definition of probabilities.
 
@@ -39,7 +40,7 @@ Frequentist view :
 
 While the frequentist approach is useful to measure a dice throw probability, it shows limitation, for example imagine we want to predict tomorrow's weather forecast :
 
-![Alt Text|50](images/proba4.png)
+![Alt Text](images/proba4.png)
 
 As shown in this example, our problem cannot be resolved with a frequentist view.
 

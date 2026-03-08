@@ -2,6 +2,7 @@
 title: Entropy
 layout: page
 parent: Probability & Statistics
+nav_order: 4
 ---
 
 ## Defining Entropy

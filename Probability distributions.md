@@ -2,6 +2,7 @@
 title: Probability distributions
 layout: page
 parent: Probability & Statistics
+nav_order: 2
 ---
 
 ## Introduction

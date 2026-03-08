@@ -2,6 +2,7 @@
 title: Tokenization techniques
 layout: page
 parent: GPT-2
+nav_order: 1
 ---
 
 ## Tokenization techniques

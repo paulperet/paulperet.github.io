@@ -2,6 +2,7 @@
 title: Surprisal
 layout: page
 parent: Probability & Statistics
+nav_order: 3
 ---
 
 ## Intuitive approach

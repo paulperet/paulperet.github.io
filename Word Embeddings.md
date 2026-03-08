@@ -2,6 +2,7 @@
 title: Word Embeddings
 layout: page
 parent: GPT-2
+nav_order: 2
 ---
 
 ## Word Embeddings : Quick Recap
