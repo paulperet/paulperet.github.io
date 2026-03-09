@@ -11,7 +11,7 @@ How can we quantify the difference between probability distribution $${\color{#E
 
 We can simply substract the entropy of our true distribution from our cross-entropy:
 
-$$H({\color{#E67C73} P}, {\color{#87CEFA} Q}) - H({\color{#E67C73} P}) = \sum_{s} {\color{#E67C73} p_s} \log \left( \frac{1}{{\color{#87CEFA} q_s}} \right) - \sum_{s} {\color{#E67C73} p_s} \log \left( \frac{1}{{\color{#E67C73} p_s}} \right) = \sum_{s} {\color{#E67C73} p_s} \log \left( \frac{{\color{#E67C73} p_s}}{{\color{#87CEFA} q_s}} \right) = D_{\text{KL}}({\color{#E67C73} P}, {\color{#87CEFA} Q})$$
+$$H({\color{#E67C73} P}, {\color{#87CEFA} Q}) - H({\color{#E67C73} P}) = \sum_{s} {\color{#E67C73} p_s} \log \left( \frac{1}{ {\color{#87CEFA} q_s}} \right) - \sum_{s} {\color{#E67C73} p_s} \log \left( \frac{1}{ {\color{#E67C73} p_s}} \right) = \sum_{s} {\color{#E67C73} p_s} \log \left( \frac{ {\color{#E67C73} p_s}}{ {\color{#87CEFA} q_s}} \right) = D_{\text{KL}}({\color{#E67C73} P}, {\color{#87CEFA} Q})$$
 
 **The Kullback-Leibler divergence measures the extra surprise caused by believing in our model instead of the true distributions, beyond the uncertainty of the true distribution itself:**
 
