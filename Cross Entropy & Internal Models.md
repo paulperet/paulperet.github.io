@@ -44,7 +44,7 @@ And the surprise is: $$h(10\ Heads) = log0.99^{-10} \approx 0.1$$
 
 Cross Entropy is a function that gives us the average surprise you will get by observing a random variable governed by a distribution P, while believing in its model Q.
 
-$$H({\color{#E67C73} P}, {\color{#87CEFA} Q}) = \sum_{s}^{\text{states}} {\color{#E67C73} p_s} \log \left( \frac{1}{{\color{#87CEFA} q_s}} \right)$$
+$$H({\color{#E67C73} P}, {\color{#87CEFA} Q}) = \sum_{s}^{\text{states}} {\color{#E67C73} p_s} \log \left( \frac{1}{ {\color{#87CEFA} q_s}} \right)$$
 
 It is the same formula as entropy but instead of using $$p_{s}$$ from one single distribution we compute the surprise according to our model and we weight it by the probability from the true probability distribution.
 
@@ -54,7 +54,7 @@ The surprise can come from either believing in the wrong model or the incertaint
 
 When $${\color{#E67C73} P}={\color{#87CEFA} Q}$$, or when our model is perfect, the cross-entropy is equal to the entropy of $${\color{#E67C73} P}$$:
 
-$$H({\color{#E67C73} P}, {\color{#87CEFA} Q}) = H({\color{#E67C73} P}, {\color{#E67C73} P}) = \sum_{s}^{\text{states}} {\color{#E67C73} p_s} \log \left( \frac{1}{{\color{#E67C73} p_s}} \right) = H({\color{#E67C73} P})$$
+$$H({\color{#E67C73} P}, {\color{#87CEFA} Q}) = H({\color{#E67C73} P}, {\color{#E67C73} P}) = \sum_{s}^{\text{states}} {\color{#E67C73} p_s} \log \left( \frac{1}{ {\color{#E67C73} p_s}} \right) = H({\color{#E67C73} P})$$
 
 ---
 
